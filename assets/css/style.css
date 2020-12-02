@@ -85,6 +85,21 @@
   color: white;
 }
 
+#empty-cart-div {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.empty-cart-link {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.v-text-field {
+  width: 40px;
+}
+
 /* loader css */
 .sk-cube-grid {
   width: 40px;

@@ -98,6 +98,7 @@ export default {
             description: '',
             price: 0,
             title: '',
+            id: '',
             loader: null,
             loading4: false,
             snackBarVal: false
@@ -123,12 +124,13 @@ export default {
         var productIdFromState = this.$store.state.product_id
         axios.get('https://fakestoreapi.com/products/' + productIdFromState)
         .then((res) => {
-            var {category,description,price,title,image} = res.data
+            var {category,description,price,title,image,id} = res.data
             this.category = category
             this.description = description
             this.price = price
             this.title = title
             this.image = image
+            this.id = id
         })
         .catch((err) => console.log(err))
     },
@@ -138,7 +140,8 @@ export default {
             var productAddedToCart = {
                     name: this.title,
                     image: this.image,
-                    price: this.price
+                    price: this.price,
+                    id: this.id
                 }
             this.$store.dispatch('selectedProduct', productAddedToCart)
         }
