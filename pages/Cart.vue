@@ -34,10 +34,10 @@
                 <td><v-btn @click="removeItem(product.id, product.price)"><v-icon>mdi-close</v-icon></v-btn></td>
                 <td><v-text-field outlined dense :label="count" class="v-text-field"></v-text-field></td>
                 <td>
-                  <v-btn class="counter-btn" @click="reduceCount(product.price)"><v-icon>mdi-minus</v-icon></v-btn>
+                  <v-btn class="counter-btn" @click="reduceCount(product.price, product.id)"><v-icon>mdi-minus</v-icon></v-btn>
                 </td>
                 <td>
-                  <v-btn class="counter-btn" @click="increaseCount(product.price)"><v-icon>mdi-plus</v-icon></v-btn>
+                  <v-btn class="counter-btn" @click="increaseCount(product.price, product.id)"><v-icon>mdi-plus</v-icon></v-btn>
                 </td>
               </tr>
             </tbody>
@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     getTotalPrice() {
-      return this.$store.getters.getCurrentTotalPrice
+      return this.$store.getters.getCurrentTotalPrice.toFixed(2)
     },
     products() {
       return this.$store.getters.getAllSelectedProducts
@@ -97,13 +97,14 @@ export default {
       this.$store.dispatch('removeProduct', id)
       this.$store.dispatch('removeProductPriceFromTotal', price)
     },
-    increaseCount(price) {
+    increaseCount(price, id) {
       this.count ++
+      alert(id)
       this.$store.dispatch('increaseSingleItemPrice', price)
     },
-    reduceCount(price) {
+    reduceCount(price, id) {
       this.count --
-      alert(price)
+      alert(id)
       this.$store.dispatch('decreaseSingleItemPrice', price)
     }
   }

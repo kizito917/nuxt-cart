@@ -13,7 +13,7 @@ export const getters = {
         return state.allSelectedProducts;
     },
     getCurrentTotalPrice: (state) => {
-        return state.allProductPrice
+        return state.allProductPrice;
     }
 }
   
@@ -46,7 +46,6 @@ export const mutations = {
     DECREASE_SINGLE_ITEM_PRICE: (state, payload) => {
         var newPrice = state.allProductPrice - payload
         state.allProductPrice = newPrice
-        alert(state.allProductPrice)
     }
 }
 
@@ -66,7 +65,7 @@ export const actions = {
     increaseSingleItemPrice: ({commit}, data) => {
         commit('INCREASE_SINGLE_ITEM_PRICE', data)
     },
-    decreaseSingleItemPrice: ({commit, data}) => {
+    decreaseSingleItemPrice: ({commit}, data) => {
         commit('DECREASE_SINGLE_ITEM_PRICE', data)
     }
 }
