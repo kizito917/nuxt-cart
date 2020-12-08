@@ -108,7 +108,6 @@ export default {
       loader () {
         const l = this.loader
         this[l] = !this[l]
-
         setTimeout(() => {
             (this[l] = false)
             this.snackBarVal = true
@@ -116,7 +115,6 @@ export default {
                 this.snackBarVal = false
             }, 2000);
         }, 2000)
-
         this.loader = null
       },
     },

@@ -32,7 +32,7 @@
                 <td><v-img :src="product.image" alt="product image" class="table-img" /></td>
                 <td>${{ product.price }}</td>
                 <td><v-btn @click="removeItem(product.id, product.price)"><v-icon>mdi-close</v-icon></v-btn></td>
-                <td><v-text-field outlined dense :label="count" class="v-text-field"></v-text-field></td>
+                <td><v-text-field outlined dense :id="product.id" :value="itemNo" class="v-text-field"></v-text-field></td>
                 <td>
                   <v-btn class="counter-btn" @click="reduceCount(product.price, product.id)"><v-icon>mdi-minus</v-icon></v-btn>
                 </td>
@@ -45,6 +45,7 @@
           <hr>
           <h2>Total Amount = &#36;{{ getTotalPrice }}</h2>
           <hr>
+          <v-btn class="dark-primary">Pay now</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -76,19 +77,20 @@ export default {
         },
       ],
       cartIsFull: false,
-      count: 1,
+      itemNo: this.$store.state.itemNo,
     }
   },
   computed: {
     getTotalPrice() {
-      return this.$store.getters.getCurrentTotalPrice.toFixed(2)
+      var price = this.$store.getters.getCurrentTotalPrice
+      return price.toFixed(2)
     },
     products() {
       return this.$store.getters.getAllSelectedProducts
     },
   },
   created() {
-    if (this.$store.state.allProductPrice != 0) {
+    if (localStorage.getItem('cart')) {
       this.cartIsFull = true
     }
   },
@@ -98,13 +100,17 @@ export default {
       this.$store.dispatch('removeProductPriceFromTotal', price)
     },
     increaseCount(price, id) {
-      this.count ++
-      alert(id)
+      var defaultNum = document.getElementById(`${id}`).value
+      var defaultNum2 = (defaultNum * 10) / 10
+      var newNum = defaultNum2 + 1
+      document.getElementById(`${id}`).value = newNum
       this.$store.dispatch('increaseSingleItemPrice', price)
     },
     reduceCount(price, id) {
-      this.count --
-      alert(id)
+      var defaultNum = document.getElementById(`${id}`).value
+      var defaultNum2 = (defaultNum * 10) / 10
+      var newNum = defaultNum2 - 1
+      document.getElementById(`${id}`).value = newNum
       this.$store.dispatch('decreaseSingleItemPrice', price)
     }
   }
